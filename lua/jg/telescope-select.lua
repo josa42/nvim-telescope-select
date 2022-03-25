@@ -5,6 +5,7 @@ function M.setup()
 end
 
 function M.select(items, opts, on_choice)
+  local action_set = require('telescope.actions.set')
   local actions = require('telescope.actions')
   local pickers = require('telescope.pickers')
   local finders = require('telescope.finders')
@@ -29,10 +30,9 @@ function M.select(items, opts, on_choice)
       horizontal = { width = 60, height = 16 },
     },
     results_title = false,
-    attach_mappings = function(prompt_bufnr)
-      actions.select_default:replace(function()
-        actions._close(prompt_bufnr, false)
-
+    attach_mappings = function()
+      action_set.select:replace(function(prompt_bufnr)
+        actions.close(prompt_bufnr, false)
         local selected = state.get_selected_entry() or {}
         on_choice(selected.value, selected.index)
       end)
