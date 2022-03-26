@@ -21,7 +21,7 @@ function M.select(items, opts, on_choice)
       results = items,
       entry_maker = function(item)
         local text = (opts.format_item or tostring)(item)
-        return { text = text, display = text, ordinal = text, value = item }
+        return { display = text, ordinal = text, value = item }
       end,
     }),
     sorter = conf.generic_sorter(),
